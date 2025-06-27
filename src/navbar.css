@@ -1,0 +1,35 @@
+.menubar-wrapper {
+    background: linear-gradient(to right, #A8253C, #7A1737);
+  }
+  
+  .custom-menubar {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 1rem;
+  }
+  
+  .p-menubar .p-menuitem-link {
+    color: #fff;
+    font-weight: 500;
+    padding: 1rem 1.25rem;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+  }
+  
+  .p-menubar .p-menuitem-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid #fff;
+  }
+  
+  .custom-active > .p-menuitem-link {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: bold;
+    border-bottom: 2px solid #FFD700; /* un dorado sutil */
+  }
+  
+  .p-menubar .pi {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+  
