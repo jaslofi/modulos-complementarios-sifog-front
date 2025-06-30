@@ -45,6 +45,8 @@ function ReporteExcel() {
         { label: 'UT', value: 'UT' },
     ];
 
+    const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
+
     const handleDownload = async () => {
         if (!fechaInicio || !fechaFin) {
             toast.current?.show({
@@ -60,7 +62,7 @@ function ReporteExcel() {
         const fechaFinStr = fechaFin.toISOString().split('T')[0];
         const folioFinal = folio || '';
 
-        const url = `http://localhost:3000/api/viaticos/reporte-excel/${fechaInicioStr}/${fechaFinStr}/${folioFinal}`;
+        const url = `${apiUrl}/viaticos/reporte-excel/${fechaInicioStr}/${fechaFinStr}/${folioFinal}`;
 
         setLoading(true);
 

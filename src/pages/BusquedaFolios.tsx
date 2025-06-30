@@ -28,7 +28,7 @@ const BusquedaFolios = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const toast = useRef<Toast>(null);
   const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
+  const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
   const selectedFilesArray = Object.values(selectedFiles);
 
   const getKey = (file: Comprobante) => `${file.idComprobante}_${file.url}`;
@@ -41,12 +41,11 @@ const BusquedaFolios = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.get<Comprobante[]>('http://localhost:3000/api/files', {
+      const response = await axios.get<Comprobante[]>(`${apiUrl}/files`, {
         params: { search: term, exactMatch: true }
       });
       setCurrentResults(response.data);
     } catch (error) {
-      console.error('Error searching files:', error);
       toast.current?.show({
         severity: 'error',
         summary: 'Error',
@@ -99,6 +98,7 @@ const BusquedaFolios = () => {
 
   const clearSelection = () => {
     setSelectedFiles({});
+    setSearchTerm('');
   };
 
   const downloadSelectedFiles = async () => {
@@ -114,7 +114,7 @@ const BusquedaFolios = () => {
 
     try {
       const filenames = selectedFilesArray.map(f => f.url);
-      const response = await axios.get('http://localhost:3000/api/files/download-multiple', {
+      const response = await axios.get(`${apiUrl}/files/download-multiple`, {
         params: { filenames: filenames.join(',') },
         responseType: 'blob'
       });
@@ -127,7 +127,6 @@ const BusquedaFolios = () => {
       link.click();
       link.remove();
     } catch (error) {
-      console.error('Error downloading files:', error);
       toast.current?.show({
         severity: 'error',
         summary: 'Error',
@@ -138,7 +137,7 @@ const BusquedaFolios = () => {
   };
 
   const openPreview = (file: Comprobante) => {
-    setPreviewUrl(`http://localhost:3000/api/files/preview/${file.url}`);
+    setPreviewUrl(`${apiUrl}/files/preview/${file.url}`);
     setVisiblePreview(true);
   };
 
@@ -168,7 +167,7 @@ const BusquedaFolios = () => {
                     inputId={`file-${getKey(file)}`}
                     checked={!!selectedFiles[getKey(file)]}
                     onChange={() => toggleFileSelection(file)}
-                    style={{color:'#E2BE89'}}
+                    style={{ color: '#E2BE89' }}
                   />
                   <label htmlFor={`file-${getKey(file)}`} className="file-label">
                     <span className="file-folio">{file.folioComprobante}</span>
@@ -236,8 +235,8 @@ const BusquedaFolios = () => {
       <Dialog
         header="PDF FACTURA"
         visible={visiblePreview}
-         className="custom-dialog"
-        style={{ width: '70vw'}}
+        className="custom-dialog"
+        style={{ width: '70vw' }}
         onHide={() => setVisiblePreview(false)}
         draggable={false}
         resizable={false}
