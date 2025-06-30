@@ -19,7 +19,7 @@ addLocale('es', {
     firstDayOfWeek: 1,
     dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
     dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-    dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+    dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
     monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     today: 'Hoy',
@@ -83,6 +83,10 @@ function ReporteExcel() {
             link.click();
             link.remove();
 
+            setFechaInicio(null);
+            setFechaFin(null);
+            setFolio(null);
+
             toast.current?.show({
                 severity: 'success',
                 summary: 'Descarga completa',
@@ -105,7 +109,7 @@ function ReporteExcel() {
     return (
         <div className="p-5 flex justify-content-center">
             <Toast ref={toast} position="top-center" />
-            <Card title="Reporte Excel" className="w-full md:w-5">
+            <Card title="Reporte Excel" className="w-full md:w-5" style={{color:'#9D0639'}}>
 
                 <div className="flex flex-column gap-3 mb-4">
                     <div className="flex flex-column gap-1">
