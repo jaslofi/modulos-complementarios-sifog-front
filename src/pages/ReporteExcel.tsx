@@ -34,6 +34,8 @@ function ReporteExcel() {
     const [folio, setFolio] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const toast = useRef<Toast>(null);
+    const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
+
 
     const folios: FolioOption[] = [
         { label: 'SP', value: 'SP' },
@@ -45,8 +47,7 @@ function ReporteExcel() {
         { label: 'UT', value: 'UT' },
     ];
 
-    const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
-
+   
     const handleDownload = async () => {
         if (!fechaInicio || !fechaFin) {
             toast.current?.show({
