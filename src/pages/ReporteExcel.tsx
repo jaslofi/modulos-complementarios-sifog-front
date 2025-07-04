@@ -34,7 +34,7 @@ function ReporteExcel() {
     const [folio, setFolio] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const toast = useRef<Toast>(null);
-    const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
+    // const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
 
 
     const folios: FolioOption[] = [
@@ -63,7 +63,7 @@ function ReporteExcel() {
         const fechaFinStr = fechaFin.toISOString().split('T')[0];
         const folioFinal = folio || '';
 
-        const url = `${apiUrl}/viaticos/reporte-excel/${fechaInicioStr}/${fechaFinStr}/${folioFinal}`;
+        const url = `https://api3.ofigob.gob.mx/api/viaticos/reporte-excel/${fechaInicioStr}/${fechaFinStr}/${folioFinal}`;
 
         setLoading(true);
 

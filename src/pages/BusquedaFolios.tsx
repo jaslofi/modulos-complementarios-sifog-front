@@ -28,7 +28,7 @@ const BusquedaFolios = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const toast = useRef<Toast>(null);
   const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
+  // const apiUrl = import.meta.env.VITE_URL_MODULOS_BACK;
   const selectedFilesArray = Object.values(selectedFiles);
 
   const getKey = (file: Comprobante) => `${file.idComprobante}_${file.url}`;
@@ -41,7 +41,7 @@ const BusquedaFolios = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.get<Comprobante[]>(`${apiUrl}/files`, {
+      const response = await axios.get<Comprobante[]>(`https://api3.ofigob.gob.mx/api/files`, {
         params: { search: term, exactMatch: true }
       });
       setCurrentResults(response.data);
@@ -114,7 +114,7 @@ const BusquedaFolios = () => {
 
     try {
       const filenames = selectedFilesArray.map(f => f.url);
-      const response = await axios.get(`${apiUrl}/files/download-multiple`, {
+      const response = await axios.get(`https://api3.ofigob.gob.mx/api/files/download-multiple`, {
         params: { filenames: filenames.join(',') },
         responseType: 'blob'
       });
@@ -137,7 +137,7 @@ const BusquedaFolios = () => {
   };
 
   const openPreview = (file: Comprobante) => {
-    setPreviewUrl(`${apiUrl}/files/preview/${file.url}`);
+    setPreviewUrl(`https://api3.ofigob.gob.mx/api/files/preview/${file.url}`);
     setVisiblePreview(true);
   };
 
